@@ -95,4 +95,27 @@ public class AggregatorController {
 
         return entry;
     }
+
+    // add a method to consume the list of Entries generated from getAllPalindromes()
+    @GetMapping("getAllPalindromes/{word}")
+    public List<Entry> getAllPalindromes() {
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<Entry> entry = aggregatorService.getAllPalindromes();
+        stopWatch.stop();
+
+        long nanoSeconds = stopWatch.getLastTaskTimeNanos();
+        String message = new StringBuilder()
+                .append("Retrieved entry for [")
+                .append(entry)
+                .append("] in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
+        logger.info(message);
+
+        return entry;
+    }
+
 }
